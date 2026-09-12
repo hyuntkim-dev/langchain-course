@@ -31,7 +31,14 @@ def main():
 
     llm = ChatAnthropic(model="claude-haiku-4-5", temperature=0)
     chain = summary_prompt_template | llm
-    response = chain.invoke({"information": information})
+    response = chain.invoke(
+        {"information": information},
+        config={
+            "run_name": "person_summary",
+            "tags": ["summary"],
+            "metadata": {"subject": "H.P. Lovecraft"},
+        },
+    )
 
     print(response.content)
 
