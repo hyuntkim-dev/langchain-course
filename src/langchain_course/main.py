@@ -8,12 +8,6 @@ load_dotenv()
 def main():
     print("Hello, World!")
 
-    
-
-
-if __name__ == "__main__":
-    main()
-
     information = """
     Howard Phillips Lovecraft (US: /ˈlʌvkræft/; August 20, 1890 – March 15, 1937) was an American writer of weird, horror, fantasy, and science fiction. He is best known for his creation of the Cthulhu Mythos,[a] but his legacy is also apparent in terms like "Lovecraftian horror" and an enduring fandom.
 
@@ -24,19 +18,23 @@ if __name__ == "__main__":
     Throughout his adult life, Lovecraft was never able to support himself from his earnings as an author and editor. He was virtually unknown during his lifetime, and was almost exclusively published in pulp magazines before his death. A scholarly revival of Lovecraft's work began in the 1970s, and he is now regarded as one of the most significant 20th-century authors of supernatural horror fiction. Many direct adaptations and spiritual successors followed. Works inspired by Lovecraft, adaptations or original works, began to form the basis of the Cthulhu Mythos, which utilizes Lovecraft's characters, setting, and themes.
     """
 
-    summary_template="""
+    summary_template = """
         given the information {information} about a person i want you to create :
         1 . A Short Summary
         2. Two interesting facts about them
     """
 
     summary_prompt_template = PromptTemplate(
-        input_variables= ["information"], 
-        template= summary_template
+        input_variables=["information"],
+        template=summary_template,
     )
 
-    llm = ChatAnthropic(model= "claude-haiku-4-5", temperature= 0)
+    llm = ChatAnthropic(model="claude-haiku-4-5", temperature=0)
     chain = summary_prompt_template | llm
     response = chain.invoke({"information": information})
 
     print(response.content)
+
+
+if __name__ == "__main__":
+    main()
